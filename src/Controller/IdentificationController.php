@@ -10,10 +10,9 @@ namespace App\Controller;
 
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Twig\Environment;
 
 /**
  * Description of IdentificationController
@@ -28,6 +27,15 @@ class IdentificationController extends AbstractController {
      * @var UtilisateurRepository
      */
     private $utilisateurRepository;
+    
+    /**
+     *
+     * @var string
+     */
+    private $etat;
+    
+    public const OLD_MAIL = 'old_mail';
+   
   
     /**
      * 
@@ -39,25 +47,56 @@ class IdentificationController extends AbstractController {
 
     
     /**
-     * @Route ("/", name="identification")
+     * @Route ("/identification", name="identification", methods={"GET","POST"})
      * @return Response
      */
     public function index():Response {
+        $this->etat = "0";
         //$utilisateur = $this->utilisateurRepository->findByMailMotDePasse($mail, $mdp);
-        return $this->render("pages/identification.html.twig");
+        return $this->render("pages/identification.html.twig",['etat' => $this->etat
+        ]);
     }
+    
+    /**
+     * @Route ("/logout", name="logout", methods={"GET"})
+     * @return Response
+     */
+    public function logout():Response {
+        
+        throw new LogicException('This method can be blank - it will be intercepted by the logout '
+                . 'key on your firewall');
+    }
+    
+    
+    /**
+     * @Route ("/erreur", name="identification.erreur")
+     * @return Response
+     */
+    /*
+    public function identificationErreur():Response {
+        $this->etat = "1";
+        //$utilisateur = $this->utilisateurRepository->findByMailMotDePasse($mail, $mdp);
+        return $this->render("pages/identification.html.twig",['etat' => $this->etat
+        ]);
+    }*/
+    
     
     /**
      * @Route ("/connexion", name="identification.connexion")
      * @param Request $request
      * @return Response
      */
+    /*
     public function ajout(Request $request): Response {
         $mail = $request->get("mail");
         $mdp = $request->get("mdp");
         $utilisateur = $this->utilisateurRepository->findByMailMotDePasse($mail, $mdp);
+        if($utilisateur == null){
+            return $this->redirectToRoute('identification.erreur', array('champ'=>"1"));
+        }else{
+            return $this->redirectToRoute('accueil');
+        }
         
-        return $this->redirectToRoute('identification');
        
-    }
+    }*/
 }

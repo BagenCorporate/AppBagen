@@ -4,12 +4,46 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
+    public function eraseCredentials() {
+        
+    }
+
+    public function getPassword() {
+        return $this->motdepasse;
+    }
+
+    /**
+     * 
+     * @return string[]
+     */
+    public function getRoles() {
+        
+    return ['ROLE_USER'];
+    }
+
+    /**
+    * @see UserInterface
+    */
+    public function getSalt() {
+        // no needed if a modern algo is used (ex: bcript)
+    }   
+
+    /**
+    * 
+    * @return string
+    */
+    public function getUsername(): string {
+        return $this->mail;
+    }
+
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -36,17 +36,17 @@ class UtilisateurRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Utilisateur
+    
+    public function findOneByEmail($mail): ?Utilisateur
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('u.mail = :val')
+            ->setParameter('val', $mail)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
     
     public function findByMailMotDePasse($mail, $mdp)
     {
