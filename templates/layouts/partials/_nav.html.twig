@@ -1,19 +1,40 @@
+<div class="container">
 <nav>
-    <ul>
-        <li>
-            <a href="{{ path('accueil') }}">Home</a>
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{{ path('accueil') }}">Home</a>
         </li>
         {% if app.user %}
-        <li>
-            <a href="{{ path('logout') }}">Logout</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('logout') }}">Logout</a>
         </li>
         {% else %}
-        <li>
-            <a href="{{ path('identification') }}">Log in</a>
-        </li>
-        <li> 
-            <a href="#">Register</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('identification') }}">Log in</a>
+        </li >
+        <li class="nav-item"> 
+            <a class="nav-link" href="{{ path('register') }}">Register</a>
         </li>
         {% endif %}
     </ul>
 </nav>
+</div>
+ 
+    <!--
+    <nav>   
+    <ul class="nav justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Active</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+  </li>
+</ul>
+    </nav>
+    -->

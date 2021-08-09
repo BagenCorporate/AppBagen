@@ -8,11 +8,15 @@
 
 namespace App\Controller;
 
+use App\Form\UserRegistrationFormType;
 use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 
 /**
  * Description of IdentificationController
@@ -34,6 +38,8 @@ class IdentificationController extends AbstractController {
      */
     private $etat;
     
+    
+    
     public const OLD_MAIL = 'old_mail';
    
   
@@ -41,10 +47,41 @@ class IdentificationController extends AbstractController {
      * 
      * @param UtilisateurRepository $utilisateurRepository
      */
-    function __construct(UtilisateurRepository $utilisateurRepository) {
+    function __construct(UtilisateurRepository $utilisateurRepository, EntityManagerInterface $om) {
         $this->utilisateurRepository = $utilisateurRepository;
     }
 
+    
+    /**
+     * @Route ("/register", name="register", methods={"GET","POST"})
+     * @return Response
+     */
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $om):Response {
+        $form = $this->createForm(UserRegistrationFormType::class);
+        //dd($form);
+        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $utilisateur = $form->getData();
+            
+            $plainMotdepasse = $form['PlainMotdepasse']->getData();
+            
+            
+            $utilisateur->setMotdepasse($passwordEncoder->encodePassword($utilisateur, $plainMotdepasse));
+            
+            $om->persist($utilisateur);
+            $om->flush();
+            
+            $this->addFlash('succes', 'Utilisateur créé avec succès !');
+            
+            return $this->redirect('accueil');
+        }
+        
+        return $this->render("pages/register.html.twig",[
+            'registrationForm' => $form->createView()
+        ]);
+    }
     
     /**
      * @Route ("/identification", name="identification", methods={"GET","POST"})
@@ -65,6 +102,7 @@ class IdentificationController extends AbstractController {
         
         throw new LogicException('This method can be blank - it will be intercepted by the logout '
                 . 'key on your firewall');
+        
     }
     
     

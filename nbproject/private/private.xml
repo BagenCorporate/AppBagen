@@ -3,20 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp64/www/bagen/config/packages/test/twig.yaml</file>
             <file>file:/C:/wamp64/www/bagen/src/Controller/AccueilController.php</file>
-            <file>file:/C:/wamp64/www/bagen/config/services.yaml</file>
-            <file>file:/C:/wamp64/www/bagen/Style/bootstrap/bootstrap.css</file>
-            <file>file:/C:/wamp64/www/bagen/.env</file>
-            <file>file:/C:/wamp64/www/bagen/config/routes.yaml</file>
+            <file>file:/C:/wamp64/www/bagen/config/packages/routing.yaml</file>
+            <file>file:/C:/wamp64/www/bagen/src/Controller/SecretController.php</file>
+            <file>file:/C:/wamp64/www/bagen/templates/pages/secret.html.twig</file>
             <file>file:/C:/wamp64/www/bagen/templates/pages/accueil.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Entity/Utilisateur.php</file>
+            <file>file:/C:/wamp64/www/bagen/src/Form/UserRegistrationFormType.php</file>
             <file>file:/C:/wamp64/www/bagen/templates/layouts/partials/_nav.html.twig</file>
+            <file>file:/C:/wamp64/www/bagen/src/Entity/Utilisateur.php</file>
             <file>file:/C:/wamp64/www/bagen/public/index.php</file>
             <file>file:/C:/wamp64/www/bagen/src/Controller/IdentificationController.php</file>
             <file>file:/C:/wamp64/www/bagen/config/packages/security.yaml</file>
-            <file>file:/C:/wamp64/www/bagen/src/Security/LoginFormAuthenticator.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Repository/UtilisateurRepository.php</file>
             <file>file:/C:/wamp64/www/bagen/templates/layouts/partials/_flash_message.html.twig</file>
+            <file>file:/C:/wamp64/www/bagen/templates/pages/register.html.twig</file>
             <file>file:/C:/wamp64/www/bagen/templates/pages/identification.html.twig</file>
             <file>file:/C:/wamp64/www/bagen/templates/layouts/base.html.twig</file>
         </group>

@@ -22,6 +22,7 @@ use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\PasswordUpgradeBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
@@ -65,7 +66,8 @@ class LoginFormAuthenticator extends AbstractAuthenticator{
         }
         
         return new Passport($utilisateur, new PasswordCredentials($request->request->get('mdp')),[
-            new CsrfTokenBadge('login_form', $request->request->get('csrf_token'))
+            new CsrfTokenBadge('login_form', $request->request->get('csrf_token')),
+            new RememberMeBadge
         ]);
         
         /**
@@ -87,7 +89,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator{
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response {
         //dd('succes');
-        $request->getSession()->remove(SecurityController::OLD_MAIL);
+        $request->getSession()->remove(IdentificationController::OLD_MAIL);
         $request->getSession()->getFlashBag()->add('succes','login succesfuly');
         return new RedirectResponse($this->urlGenerator->generate('accueil'));
     }
