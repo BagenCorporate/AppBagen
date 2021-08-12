@@ -30,7 +30,7 @@ class SecretController extends AbstractController {
     
     /**
      * @Route ("/secret", name="secret", methods={"GET"})
-     * @IsGranted
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function index():Response {

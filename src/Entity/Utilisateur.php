@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -93,6 +95,16 @@ class Utilisateur implements UserInterface
      */
     private $mail;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Compte::class, mappedBy="idutilisateur")
+     */
+    private $comptes;
+
+    public function __construct()
+    {
+        $this->comptes = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -178,6 +190,36 @@ class Utilisateur implements UserInterface
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Compte[]
+     */
+    public function getComptes(): Collection
+    {
+        return $this->comptes;
+    }
+
+    public function addCompte(Compte $compte): self
+    {
+        if (!$this->comptes->contains($compte)) {
+            $this->comptes[] = $compte;
+            $compte->setIdutilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompte(Compte $compte): self
+    {
+        if ($this->comptes->removeElement($compte)) {
+            // set the owning side to null (unless already changed)
+            if ($compte->getIdutilisateur() === $this) {
+                $compte->setIdutilisateur(null);
+            }
+        }
 
         return $this;
     }

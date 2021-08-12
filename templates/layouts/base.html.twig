@@ -38,6 +38,16 @@
             .cl-r{
                 color:red;
             }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         </style>
      
     </head>
@@ -45,8 +55,11 @@
         <!-- entête -->
         {% block top %}{% endblock %}
         <!-- corps -->
+        
         {{ include('layouts/partials/_nav.html.twig') }}
+        {{ include('layouts/partials/_banniere.html.twig') }}
         {{ include('layouts/partials/_flash_message.html.twig') }}
+        
         <main role="main" class="container">
         <!--<div class="container">-->
         {% block body %}

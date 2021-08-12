@@ -1,0 +1,24 @@
+
+<div class="col-md-4">
+    <div class="panel panel-default" style="box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+        -moz-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+        -webkit-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);">
+        <div>
+            <div class="col-md-7">
+                <a>dernière modification le : </a>
+            </div>
+        <div class="col-md-4">
+            <a>{{ compte.ladatemodifie }}</a>
+        </div>
+        </div>
+        <div style="text-align: center">
+            <h2>{{ compte.intitule }}</h2>
+        </div>
+        <div class="chart x-{{compte.pourcentageBudgetDepense}}">
+            <p>{{compte.pourcentageBudgetDepense}}%</p>
+        </div>
+        <div style="text-align: center; margin-bottom: 20px">
+            <a style="color:#002752; text-decoration: underline #002752" href="{{ path('compte', {id:compte.id}) }}">voir</a>
+        </div>
+    </div>
+</div>
