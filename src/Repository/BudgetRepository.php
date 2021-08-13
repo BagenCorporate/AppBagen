@@ -47,4 +47,17 @@ class BudgetRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function updateMontant($montant,$idcompte){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.montant', ':montant')
+            ->andWhere('p.idcompte = :idcompte')
+            ->setParameter('montant', $montant)
+            ->setParameter('idcompte', $idcompte)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+
+}
 }

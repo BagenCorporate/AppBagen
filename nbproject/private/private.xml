@@ -3,23 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/AccueilController.php</file>
+            <file>file:/C:/wamp64/www/bagen/templates/pages/affichercompte.html.twig</file>
+            <file>file:/C:/wamp64/www/bagen/templates/pages/accueilutilisateur.html.twig</file>
             <file>file:/C:/wamp64/www/bagen/src/Entity/Compte.php</file>
             <file>file:/C:/wamp64/www/bagen/src/Controller/AccueilUtilisateurController.php</file>
+            <file>file:/C:/wamp64/www/bagen/src/Controller/CompteController.php</file>
             <file>file:/C:/wamp64/www/bagen/templates/layouts/partials/_compteCard.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/accueil.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Form/UserRegistrationFormType.php</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/accueilutilisateur.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/layouts/partials/_nav.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Entity/Utilisateur.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/IdentificationController.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Security/LoginFormAuthenticator.php</file>
-            <file>file:/C:/wamp64/www/bagen/templates/layouts/partials/_banniere.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/layouts/partials/_flash_message.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/register.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/identification.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Repository/CompteRepository.php</file>
-            <file>file:/C:/wamp64/www/bagen/templates/layouts/base.html.twig</file>
         </group>
     </open-files>
 </project-private>

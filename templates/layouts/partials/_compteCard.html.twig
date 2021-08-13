@@ -17,6 +17,12 @@
         <div class="chart x-{{compte.pourcentageBudgetDepense}}">
             <p>{{compte.pourcentageBudgetDepense}}%</p>
         </div>
+        <div style="text-align : center">
+            <a>Budget : {{ compte.lebudget }} €</a><br/>
+            <a>Dépenses : {{ compte.totalDepense }} €</a><br/>
+            <a>Total : {{ compte.total }} €</a>
+                
+        </div>
         <div style="text-align: center; margin-bottom: 20px">
             <a style="color:#002752; text-decoration: underline #002752" href="{{ path('compte', {id:compte.id}) }}">voir</a>
         </div>

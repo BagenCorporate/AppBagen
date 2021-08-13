@@ -12,7 +12,10 @@ use Doctrine\Common\Collections\Collection;
  */
 class Compte
 {
-    
+    public function getLadatecreation(): ?string
+    {
+        return $this->datecreation->format('d-m-Y');
+    }
     
     public function getLadatemodifie(): ?string
     {
@@ -187,4 +190,15 @@ class Compte
     {
         return round(($this->getTotalDepense()/$this->getLeBudget()) *100,0,PHP_ROUND_HALF_DOWN);
     }
+    
+    /**
+     * retourne budget - depenses
+     * @return float
+     */
+    public function getTotal(): float
+    {
+        return $this->getLeBudget()-$this->getTotalDepense();
+    }
+    
+    
 }

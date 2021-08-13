@@ -10,6 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Depense
 {
+    
+    public function getLadate(): ?string
+    {
+        return $this->date->format('d-m-Y');
+    }
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

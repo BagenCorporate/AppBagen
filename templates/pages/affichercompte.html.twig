@@ -1,4 +1,78 @@
 {% extends "layouts/base.html.twig" %}
+
+{% block stylesheets %}
+    <link href="http://localhost/bagen/style/tableau_depense.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    <h2>Compte</h2>
+    <div class="row" style="margin-top: 15px">
+        <div>
+        <div class="col-md-6">
+            <a style="margin-top: 0px !important;font-size:64px">{{ compte.intitule }}</a>
+        </div>
+        <div style="text-align: end" class="col-md-6">
+            <a>
+               créé le : {{ compte.ladatecreation }}
+            </a>
+        </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div style="background-color: #9db5e8; padding:0px !important">
+            <div class="col-md-6">
+                <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">Budget :</h2>
+            </div>
+            <div class="col-md-3">
+                <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">+ {{ compte.lebudget }} €</h2>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ path('compte.modifie.budget', {id:compte.id}) }}">
+                    modifier
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+            <div style="background-color: #9db5e8; padding:0px !important">
+                <div class="col-md-6">
+                    <h2 style="color:white; margin-bottom: 0px !important;margin-top: 0px !important; padding: 15px;">Dépenses :</h2>
+                </div>
+                <div class="col-md-6">
+                    <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">- {{ compte.totaldepense }} €</h2>
+                </div>
+            </div>
+            <table class="ea_table" style="padding-left: 0px !important;padding-right: 0px !important">
+                <thead>
+                    <tr  class="mrg-right-15">
+                        <th>Libelle</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for depense in compte.depenses %} 
+                    <tr>
+                        <td>{{ depense.libelle }}</td>
+                        <td>{{ depense.ladate }}</td>
+                        <td>{{ depense.montant }} €</td>
+                    </tr>
+                    {% endfor %}  
+                </tbody>
+            </table>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div style="background-color: #9db5e8; padding:0px !important">
+            <div class="col-md-6">
+                <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">Total :</h2>
+            </div>
+            <div class="col-md-6">
+                <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">{{ compte.total }} €</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="text-align: end; margin-top: 15px">
+            <a>
+               modifié le : {{ compte.ladatemodifie }}
+            </a>
+    </div>
 {% endblock %}

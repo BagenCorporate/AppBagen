@@ -65,4 +65,15 @@ class CompteRepository extends ServiceEntityRepository
         ;
     }
     
+    public function updateDateModif($idcompte,$date){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.datemodif', ':date')
+            ->andWhere('p.id = :idcompte')
+            ->setParameter('idcompte', $idcompte)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
 }
