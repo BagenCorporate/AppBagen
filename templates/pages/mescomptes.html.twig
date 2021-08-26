@@ -1,0 +1,130 @@
+{% extends "layouts/base.html.twig" %}
+{% block stylesheets %}
+    <link href="http://localhost/bagen/style/diagramme_pourcentage.css" rel="stylesheet">
+    <link href="http://localhost/bagen/style/pagination_mescomptes.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <h1 style="color:#337ab7; margin-bottom: 15px">
+            Mes Comptes : 
+        </h1>
+    </div>
+   {% set nbrparpage = 6 %}
+    {% set nombre = (((lesComptes|length)/nbrparpage))|round(0,'ceil')  %}
+    {% if nombre <= 3 %}
+    <div style="text-align: center"  >
+        <div style="display:inline-block">
+            <div class="row">
+                {% for i in range(1,nombre) %}
+                    {% if i == numeropage %}
+                        <a class="rond select" href="{{ path('mescomptes.page', {numeropage:i}) }}">
+                            <p class="no-marg">{{ i }}</p>
+                        </a>
+                    {% else %}
+                        <a class="rond" href="{{ path('mescomptes.page', {numeropage:i}) }}">
+                            <p class="no-marg">{{ i }}</p>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div style="text-align:center">
+            <div style="display:inline-block">
+                <div class="row"  >
+                    {% if numeropage == 1 %}
+                        <a class="rond select"  href="{{ path('mescomptes.page', {numeropage:numeropage}) }}">
+                            <p class="no-marg">{{ numeropage }}</p>
+                        </a>
+                        <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage+1}) }}">
+                            <p class="no-marg">{{ numeropage+1 }}</p>
+                        </a>
+                        <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage+2}) }}">
+                            <p class="no-marg">{{ numeropage+2 }}</p>
+                        </a>
+                    {% else %}
+                        {% if numeropage == nombre-1 %}
+                            <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage-2}) }}">
+                                <p class="no-marg">{{ numeropage-2 }}</p>
+                            </a>
+                            <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage-1}) }}">
+                                <p class="no-marg">{{ numeropage-1 }}</p>
+                            </a>
+                            <a class="rond select" href="{{ path('mescomptes.page', {numeropage:numeropage}) }}">
+                                <p class="no-marg">{{ numeropage }}</p>
+                            </a>
+                        {% else %}
+                            {% if numeropage == nombre %}
+                                <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage-3}) }}">
+                                    <p class="no-marg">{{ numeropage-3 }}</p>
+                                </a>
+                                <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage-2}) }}">
+                                    <p class="no-marg">{{ numeropage-2 }}</p>
+                                </a>
+                                <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage-1}) }}">
+                                    <p class="no-marg">{{ numeropage-1 }}</p>
+                                </a>
+                            {% else %}
+                                <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage-1}) }}">
+                                    <p class="no-marg">{{ numeropage-1 }}</p>
+                                </a>
+                                <a class="rond select" href="{{ path('mescomptes.page', {numeropage:numeropage}) }}">
+                                    <p class="no-marg">{{ numeropage }}</p>
+                                </a>
+                                <a class="rond" href="{{ path('mescomptes.page', {numeropage:numeropage+1}) }}">
+                                    <p class="no-marg">{{ numeropage+1 }}</p>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    <div style="width:fit-content;">
+                    <div class="rond-gr" style="text-align:center;">
+
+
+                        <form method="POST" action="{{ path('mescomptes.page', {numeropage:numeropage}) }}" >
+                            <input style='width:1.5em; border-color: transparent; background-color: transparent' type="text" name="numero" placeholder="..." autofocus >
+                            <button  style="width:0px !important; height:0px !important; display: none" type="submit"  >
+                            </button>
+                        </form>
+
+                    </div>
+                    </div>
+                    {% if numeropage == nombre %}
+                        <a class="rond select" href="{{ path('mescomptes.page', {numeropage:nombre}) }}">
+                            <p class="no-marg">{{ nombre }}</p>
+                        </a>
+                    {% else %}
+                        <a class="rond" href="{{ path('mescomptes.page', {numeropage:nombre}) }}">
+                            <p class="no-marg">{{ nombre }}</p>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    
+    
+    <div class="row">
+     {% set index = 1 %}
+     {% for compte in lesComptes %}
+        {% if index > (numeropage-1)*nbrparpage and index <= numeropage*nbrparpage  %}
+        {%   include['layouts/partials/_compteCard.html.twig'] with [{'compte': compte}] %}
+        {% endif %}
+        {% set index = index+1 %}
+    {% endfor %}  
+ </div>
+    
+ <!--{% if lesComptes|length > 0 %}
+ <div class="row">
+     <div style="text-align: end;">
+         <a href="{{ path('mescomptes.page.moins',{numeropage:numeropage}) }}" style="font-size:35px"><</a>
+         <a style="font-size:30px">{{ numeropage }}</a>
+         <a href="{{ path('mescomptes.page.plus',{numeropage:numeropage}) }}" style="font-size:35px">></a>
+     <div>
+ </div>
+{% endif %}-->
+{% endblock %}
+            
+ 

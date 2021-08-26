@@ -58,4 +58,78 @@ class UtilisateurRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+    
+    public function updateNom($nom, $id){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.nom', ':nom')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('nom', $nom)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
+    public function updatePrenom($prenom, $id){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.prenom', ':prenom')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('prenom', $prenom)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
+    public function updateAdresse($adresse, $id){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.adresse', ':adresse')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('adresse', $adresse)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
+    public function updateCodepostal($codepostal, $id){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.codepostal', ':codepostal')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('codepostal', $codepostal)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
+    public function updateVille($ville, $id){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.ville', ':ville')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('ville', $ville)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
+    public function updateAll($nom, $prenom, $adresse, $codepostal, $ville, $id){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.ville', ':ville')
+            ->set('p.codepostal', ':codepostal')
+            ->set('p.adresse', ':adresse')
+            ->set('p.prenom', ':prenom')
+            ->set('p.nom', ':nom')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('ville', $ville)
+            ->setParameter('codepostal', $codepostal)
+            ->setParameter('adresse', $adresse)
+            ->setParameter('prenom', $prenom)
+            ->setParameter('nom', $nom)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

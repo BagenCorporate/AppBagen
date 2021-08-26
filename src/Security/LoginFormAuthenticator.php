@@ -65,7 +65,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator{
             throw new CustomUserMessageAuthenticationException('invalid credentials');
         }
         
-        return new Passport($utilisateur, new PasswordCredentials($request->request->get('mdp')),[
+        return new Passport($utilisateur, new PasswordCredentials($request->request->get('password')),[
             new CsrfTokenBadge('login_form', $request->request->get('csrf_token')),
             new RememberMeBadge
         ]);
@@ -90,8 +90,8 @@ class LoginFormAuthenticator extends AbstractAuthenticator{
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response {
         //dd('succes');
         $request->getSession()->remove(IdentificationController::OLD_MAIL);
-        $request->getSession()->getFlashBag()->add('succes','login succesfuly');
-        return new RedirectResponse($this->urlGenerator->generate('accueil'));
+        //$request->getSession()->getFlashBag()->add('succes','login succesfuly');
+        return new RedirectResponse($this->urlGenerator->generate('accueil.utilisateur'));
     }
 
     public function supports(Request $request): ?bool {

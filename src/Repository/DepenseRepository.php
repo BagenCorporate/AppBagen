@@ -47,4 +47,19 @@ class DepenseRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function updateDepense($id,$date,$libelle,$montant){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.date', ':date')
+            ->set('p.montant', ':montant')
+            ->set('p.libelle', ':libelle')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('date', $date)
+            ->setParameter('montant', $montant)
+            ->setParameter('libelle', $libelle)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

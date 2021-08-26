@@ -9,8 +9,8 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
-use App\Repository\UtilisateurRepository;
 use App\Repository\CompteRepository;
+use App\Repository\UtilisateurRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,9 +48,37 @@ class AccueilUtilisateurController extends AbstractController {
         //$this->denyAccessUnlessGranted('ROLE_USER');
         //$lesComptes = $user->getComptes();
         $lesComptes = $compteRepository->findByIdutilisateur($user->getId());
+        $tousComptes = $compteRepository->findAll();
+        $liste=[];
+        foreach($lesComptes as $compte){
+           array_push($liste, $compte->getIntitule()); 
+        }
         //dd($lesComptes[1]->getPourcentageBudgetDepense());
         return $this->render("pages/accueilutilisateur.html.twig",[
-            'lesComptes' => $lesComptes
+            'lesComptes' => $lesComptes, 'liste'=> $liste
+        ]);
+    }
+    
+    /**
+     * @Route ("/accueil/utilisateur/search", name="accueil.utilisateur.search", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function search(Request $request, UserInterface $user, CompteRepository $compteRepository ):Response {
+        $intitule = $request->get("intitule");
+        //dd($intitule);
+        //$this->denyAccessUnlessGranted('ROLE_USER');
+        //$lesComptes = $user->getComptes();
+        $leCompte = $compteRepository->findByIntituleIdutilisateur($intitule, $user->getId());
+       
+        $tousComptes = $compteRepository->findByIdutilisateurTous($user->getId());
+        $liste=[];
+        foreach($tousComptes as $compte){
+           array_push($liste, $compte->getIntitule()); 
+        }
+        //dd($lesComptes[1]->getPourcentageBudgetDepense());
+        return $this->render("pages/accueilutilisateur.html.twig",[
+            'lesComptes' => $leCompte, 'liste'=> $liste
         ]);
     }
 }

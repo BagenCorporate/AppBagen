@@ -137,4 +137,16 @@ class IdentificationController extends AbstractController {
         
        
     }*/
+    
+    
+    /**
+     * @Route ("/test/{id}", name="test", methods={"GET","POST"})
+     * @return Response
+     */
+    public function test($id):Response {
+        dd($id);
+        //$utilisateur = $this->utilisateurRepository->findByMailMotDePasse($mail, $mdp);
+        return $this->render("pages/identification.html.twig",['etat' => $this->etat
+        ]);
+    }
 }

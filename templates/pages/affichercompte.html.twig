@@ -2,34 +2,93 @@
 
 {% block stylesheets %}
     <link href="http://localhost/bagen/style/tableau_depense.css" rel="stylesheet">
+    <link href="http://localhost/bagen/style/popup_supprimer_compte.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-    <div class="row" style="margin-top: 15px">
-        <div>
-        <div class="col-md-6">
-            <a style="margin-top: 0px !important;font-size:64px">{{ compte.intitule }}</a>
+    
+    {% if "/supprimer" in app.request.pathinfo  %}
+    <div id="overlay" class="overlay">
+        <div id="popup" class="popup" style="width:fit-content; text-align: center">
+            <div>
+            <h2 style="margin-top: 0px !important">
+                Confirmer la suppression  
+            </h2>
+            </div>
+            <div style="margin-bottom: 10px">
+                <a>Voulez-vous vraiment supprimer définitivement ce compte ?</a>
+            </div>
+            <div>
+                <a href="{{ path('compte.supprimer', {id:compte.id}) }}" class="btn btn-primary">valider</a>
+                <a href="{{ path('compte', {id:compte.id}) }}" class="btn btn-annuler" style="margin-left: 15px">annuler</a>
+            </div>
         </div>
-        <div style="text-align: end" class="col-md-6">
+    </div>
+    {% endif %}
+    
+    {% if "/cloturer" in app.request.pathinfo  %}
+    <div id="overlay" class="overlay">
+        <div id="popup" class="popup" style="width:fit-content; text-align: center">
+            <div>
+            <h2 style="margin-top: 0px !important">
+                Confirmer la cloture  
+            </h2>
+            </div>
+            <div style="margin-bottom:10px">
+                Voulez-vous vraiment cloturer définitivement ce compte ?
+            </div>
+            <div>
+                <a href="{{ path('compte.cloturer', {id:compte.id}) }}" class="btn btn-primary">valider</a>
+                <a href="{{ path('compte', {id:compte.id}) }}" class="btn btn-annuler" style="margin-left: 15px">annuler</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="row">
+        <div style="text-align: end" >
             <a>
                créé le : {{ compte.ladatecreation }}
             </a>
         </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div>
+            <div class="col-md-6">
+                <a style="margin-top: 0px !important;font-size:64px; color:#337ab7">{{ compte.intitule }}</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ path('compte.supprimer.confirmer', {id:compte.id}) }}">supprimer</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ path('compte.cloturer.confirmer', {id:compte.id}) }}">cloturer</a>
+            </div>
         </div>
     </div>
     <div class="row" style="margin-top: 15px">
         <div style="background-color: #9db5e8; padding:0px !important">
-            <div class="col-md-6">
-                <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">Budget :</h2>
-            </div>
-            <div class="col-md-3">
-                <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">+ {{ compte.lebudget }} €</h2>
-            </div>
-            <div class="col-md-3">
-                <a href="{{ path('compte.modifie.budget', {id:compte.id}) }}">
-                    modifier
-                </a>
-            </div>
+            {% if compte.lebudget != 0 %}
+                <div class="col-md-6">
+                    <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">Budget :</h2>
+                </div>
+                <div class="col-md-3">
+                    <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">+ {{ compte.lebudget }} €</h2>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{ path('compte.modifie.budget', {id:compte.id}) }}">
+                        modifier
+                    </a>
+                </div>
+            {% else %}
+                <div class="col-md-6">
+                    <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">Pas de Budget</h2>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{ path('compte.modifie.budget', {id:compte.id}) }}">
+                        modifier
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="row" style="margin-top: 15px">
@@ -37,9 +96,14 @@
                 <div class="col-md-6">
                     <h2 style="color:white; margin-bottom: 0px !important;margin-top: 0px !important; padding: 15px;">Dépenses :</h2>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <h2 style="color:white; margin-bottom: 0px !important;padding: 15px;margin-top: 0px !important">- {{ compte.totaldepense }} €</h2>
                 </div>
+                <div class="col-md-3">
+                <a href="{{ path('compte.ajouter.depense', {id:compte.id}) }}">
+                    ajouter
+                </a>
+            </div>
             </div>
             <table class="ea_table" style="padding-left: 0px !important;padding-right: 0px !important">
                 <thead>
@@ -47,19 +111,46 @@
                         <th>Libelle</th>
                         <th>Date</th>
                         <th>Montant</th>
+                        <th>Modifier</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% if compte.totalDepense != null %}
                     {% for depense in compte.depenses %} 
                     <tr>
                         <td>{{ depense.libelle }}</td>
                         <td>{{ depense.ladate }}</td>
                         <td>{{ depense.montant }} €</td>
+                        <td>
+                            <div class="col-md-6">
+                            <a style="background-color: white;border-color: transparent;
+                                   font-size:25px; color: #337ab7; padding: 0; margin-left: 20px; background-color: transparent"
+                                   href="{{ path('compte.modifie.depense', {id:depense.id}) }}">></a>
+                            </div>
+                                   <div class="col-md-6" style="text-align: end">  
+                            <a style="background-color: white;border-color: transparent;
+                                   font-size:25px; color: #337ab7; padding: 0; margin-left: 20px; background-color: transparent; text-align: end"
+                                   href="{{ path('compte.supprimer.depense', {id:depense.id}) }}">X</a>
+                                   </div>
+                        </td>
                     </tr>
-                    {% endfor %}  
+                    {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>pas de dépenses</td>
+                            <td> </td>
+                            <td> </td>
+                            <td>
+                                <a href="{{ path('compte.ajouter.depense', {id:compte.id}) }}">
+                                    ajouter
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
                 </tbody>
             </table>
     </div>
+    {% if compte.lebudget != 0 %}
     <div class="row" style="margin-top: 15px">
         <div style="background-color: #9db5e8; padding:0px !important">
             <div class="col-md-6">
@@ -70,9 +161,11 @@
             </div>
         </div>
     </div>
+    {% endif %}
     <div class="row" style="text-align: end; margin-top: 15px">
             <a>
                modifié le : {{ compte.ladatemodifie }}
             </a>
+            
     </div>
 {% endblock %}

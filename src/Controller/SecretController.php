@@ -8,11 +8,11 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Description of SecretController
@@ -29,13 +29,27 @@ class SecretController extends AbstractController {
 
     
     /**
-     * @Route ("/secret", name="secret", methods={"GET"})
+     * @Route ("/secret", name="secret", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function index():Response {
         //$this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render("pages/secret.html.twig");
+        return $this->render("pages/secret.html.twig", [
+            'titre'=>"titren"
+        ]);
+    }
+    
+    /**
+     * @Route ("/secret/test", name="secret.test", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function test(Request $request):Response {
+        //$this->denyAccessUnlessGranted('ROLE_USER');
+        return $this->render("pages/secret.html.twig", [
+            'titre'=> $request->get('titre')
+        ]);
     }
     
 }

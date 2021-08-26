@@ -6,6 +6,7 @@ use App\Repository\CompteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CompteRepository::class)
@@ -21,6 +22,16 @@ class Compte
     {
         return $this->datemodif->format('d-m-Y');
     }
+    
+    public function getLadatecloture(): ?string
+    {
+        
+        if($this->datecloture != null){
+        return $this->datecloture->format('d-m-Y');
+        }else{
+            return " ";
+        }
+    }
             
     /**
      * @ORM\Id
@@ -31,11 +42,13 @@ class Compte
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      */
     private $intitule;
 
     /**
      * @ORM\Column(type="date")
+     * 
      */
     private $datecreation;
 
@@ -177,8 +190,24 @@ class Compte
     
     public function getLeBudget() : float
     {
+        if($this->budget[0] != null){
         $this->leBudget = $this->budget[0]->getMontant();
         return $this->leBudget;
+        }else{
+            return 0;
+        }
+    }
+    
+    /**
+     *
+     * @var float
+     */
+    private $monBudget;
+    
+    public function getMonBudget() : float
+    {
+        
+        return $this->monBudget;
     }
     
     

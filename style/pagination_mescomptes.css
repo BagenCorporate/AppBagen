@@ -1,0 +1,46 @@
+.rond {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background: transparent;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.rond-gr {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background: transparent;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+}
+
+.no-marg{
+    margin:0px !important;
+}
+
+.rond:hover{
+    background: lightblue;
+}
+
+.rond-gr:hover{
+    background: lightblue;
+}
+
+.select{
+    background: lightblue;
+}

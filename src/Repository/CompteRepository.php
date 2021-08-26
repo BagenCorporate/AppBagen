@@ -76,4 +76,37 @@ class CompteRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
     
+    public function updateDateCloture($idcompte,$date){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.datecloture', ':date')
+            ->andWhere('p.id = :idcompte')
+            ->setParameter('idcompte', $idcompte)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
+    public function findByIdutilisateurTous($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.idutilisateur = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.datemodif', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    public function findByIntituleIdutilisateur($intitule, $idutilisateur){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.idutilisateur = :idutilisateur')
+            ->andWhere('c.intitule = :intitule')
+            ->setParameter('intitule', $intitule)
+            ->setParameter('idutilisateur', $idutilisateur)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 }

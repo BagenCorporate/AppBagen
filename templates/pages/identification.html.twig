@@ -10,7 +10,7 @@
                 <h3 class="panel-title">Identification utilisateur</h3>
             </div>
             <div class="panel-body">
-                <form role="form" method="post" 
+                <form name="form" id="form" role="form" method="post" 
                       action="#">
                     <fieldset>
                         <div class="form-group">
@@ -35,8 +35,8 @@
                                 </span>
                                 <input class="form-control"
                                        placeholder="Mot de passe" 
-                                       name="mdp"
-                                       type="mdp" 
+                                       name="password"
+                                       type="password" 
                                        maxlength="45" 
                                        required>
                                 <input type="hidden" 
@@ -55,10 +55,13 @@
                         <input class="btn btn-lg btn-primary btn-block"
                                type="submit" 
                                value="Se connecter">
+                        
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
+
