@@ -2,7 +2,7 @@
 
 ### Objectifs :
 
-1.Mettre en oeuvre une application web, qui permet d'enregistrer, modifier et visualiser des comptes financiers comprenant un budget et des des dépenses.
+1.Mettre en oeuvre une application web, qui permet d'enregistrer, modifier et visualiser des comptes de gestion financière comprenant un budget et des des dépenses.
 - **NetBeans** : Environnement de développement intégré (IDE) utilisé pour ce projet.
 - **Symfony5** : Framework utilisé.
 - **HTML** : Langage de balisage utilisé pour concevoir les pages web.
