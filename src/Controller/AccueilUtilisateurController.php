@@ -45,18 +45,24 @@ class AccueilUtilisateurController extends AbstractController {
      */
     public function index(Request $request, UserInterface $user, CompteRepository $compteRepository ):Response {
         
+        try {
+        
         //$this->denyAccessUnlessGranted('ROLE_USER');
         //$lesComptes = $user->getComptes();
         $lesComptes = $compteRepository->findByIdutilisateur($user->getId());
-        $tousComptes = $compteRepository->findAll();
+        $tousComptes = $compteRepository->findByIdutilisateurTous($user->getId());
         $liste=[];
-        foreach($lesComptes as $compte){
+        foreach($tousComptes as $compte){
            array_push($liste, $compte->getIntitule()); 
         }
         //dd($lesComptes[1]->getPourcentageBudgetDepense());
         return $this->render("pages/accueilutilisateur.html.twig",[
-            'lesComptes' => $lesComptes, 'liste'=> $liste
+            'lesComptes' => $lesComptes, 'liste'=> $liste, 'numero' => 1
         ]);
+        
+        } catch (Exception $e) {
+            return $this->redirectToRoute('identification');
+        }
     }
     
     /**
@@ -78,7 +84,56 @@ class AccueilUtilisateurController extends AbstractController {
         }
         //dd($lesComptes[1]->getPourcentageBudgetDepense());
         return $this->render("pages/accueilutilisateur.html.twig",[
-            'lesComptes' => $leCompte, 'liste'=> $liste
+            'lesComptes' => $leCompte, 'liste'=> $liste, 'numero' => 1
+        ]);
+    }
+    
+    /**
+     * @Route ("/accueil/utilisateur/plus/{numero}", name="accueil.utilisateur.plus", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function plus($numero, UserInterface $user, CompteRepository $compteRepository ):Response {
+        $lesComptes = $compteRepository->findByIdutilisateur($user->getId());
+        $tousComptes = $compteRepository->findByIdutilisateurTous($user->getId());
+        $liste=[];
+        foreach($tousComptes as $compte){
+           array_push($liste, $compte->getIntitule()); 
+        }
+        if($numero >= count($tousComptes)-2)
+        {
+            $nouveaunumero = $numero;
+        }else{
+            $nouveaunumero = $numero + 1;
+        }
+        
+        //dd($lesComptes[1]->getPourcentageBudgetDepense());
+        return $this->render("pages/accueilutilisateur.html.twig",[
+            'lesComptes' => $tousComptes, 'liste'=> $liste, 'numero' => $nouveaunumero
+        ]);
+    }
+    
+    /**
+     * @Route ("/accueil/utilisateur/moins/{numero}", name="accueil.utilisateur.moins", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function moins($numero, UserInterface $user, CompteRepository $compteRepository ):Response {
+        $lesComptes = $compteRepository->findByIdutilisateur($user->getId());
+        $tousComptes = $compteRepository->findByIdutilisateurTous($user->getId());
+        $liste=[];
+        foreach($tousComptes as $compte){
+           array_push($liste, $compte->getIntitule()); 
+        }
+        if($numero <= 1 )
+        {
+            $nouveaunumero = $numero;
+        }else{
+            $nouveaunumero = $numero - 1;
+        }
+        //dd($lesComptes[1]->getPourcentageBudgetDepense());
+        return $this->render("pages/accueilutilisateur.html.twig",[
+            'lesComptes' => $tousComptes, 'liste'=> $liste, 'numero' => $nouveaunumero
         ]);
     }
 }

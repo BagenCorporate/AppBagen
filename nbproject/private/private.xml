@@ -2,32 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/mescomptes.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/profil.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/ProfilController.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Form/ContacterRegistrationFormType.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/AccueilController.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Entity/Compte.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/AccueilUtilisateurController.php</file>
-            <file>file:/C:/wamp64/www/bagen/config/bundles.php</file>
-            <file>file:/C:/wamp64/www/bagen/.env</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/SecretController.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/MesComptesController.php</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/accueilutilisateur.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/IdentificationController.php</file>
-            <file>file:/C:/wamp64/www/bagen/style/footer.css</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/contact.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/ContactController.php</file>
-            <file>file:/C:/wamp64/www/bagen/style/pagination_mescomptes.css</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/CreerCompteController.php</file>
-            <file>file:/C:/wamp64/www/bagen/templates/layouts/partials/_mailcontact.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/src/Form/CompteRegistrationFormType.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Form/UserRegistrationFormType.php</file>
-            <file>file:/C:/wamp64/www/bagen/src/Controller/CompteController.php</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/register.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/pages/identification.html.twig</file>
-            <file>file:/C:/wamp64/www/bagen/templates/layouts/base.html.twig</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

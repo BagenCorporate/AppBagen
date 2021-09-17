@@ -2,10 +2,11 @@
 {% block stylesheets %}
     <link href="http://localhost/bagen/style/diagramme_pourcentage.css" rel="stylesheet">
     <link href="http://localhost/bagen/style/searchbar.css" rel="stylesheet">
+    <link href="http://localhost/bagen/style/accueilutilisateur.css" rel="stylesheet">
     <link href="http://localhost/bagen/style/popup_supprimer_compte.css" rel="stylesheet">
 {% endblock %}
 {% block body %}
-    
+    <div class="container">
     {% if lesComptes|length == 0 and "/search" in app.request.pathinfo %}
     <div id="overlay" class="overlay">
         <div id="popup" class="popup" style="width:fit-content; text-align: center">
@@ -37,10 +38,10 @@
                     <a class="nav-link" style="color: white; font-size: 15px; margin-right: 30px" href="{{ path('mescomptes') }}">Mes Comptes</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" style="color: white; font-size: 15px; margin-right: 30px" href="#">Comptes Partagés</a>
+                    <a class="nav-link" style="color: white; font-size: 15px; margin-right: 30px" >Comptes Partagés</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" style="color: white; font-size: 15px; margin-right: 30px" href="#">Comptes clôturés</a>
+                    <a class="nav-link" style="color: white; font-size: 15px; margin-right: 30px" >Comptes clôturés</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" style="color: white; font-size: 15px; margin-right: 30px" href="{{ path('creer.compte.nouveau') }}">Créer Compte</a>
@@ -92,13 +93,48 @@
          {% endif %}
          
      </div>
+    </div>
+    <div style="position: relative; z-index: 0">
+    <div style="position:absolute;width:100%;top: 50%; z-index: 0">
+        {% if "/search" not in app.request.pathinfo %}
+        <div style="width:100%;">
+            {% if numero == 1 %}
+            <a class="fleche-gauche-desactive"  > < </a>
+            {% else %}
+            <a class="fleche-gauche" href="{{ path('accueil.utilisateur.moins', {numero:numero}) }}" > < </a>
+            {% endif %}
             
-    <div class="row">
+            {% if numero != liste|length-2 and liste|length > 3 %}
+            <a class="fleche-droite" href="{{ path('accueil.utilisateur.plus', {numero:numero}) }}" > > </a>
+            {% else %}
+                <a class="fleche-droite-desactive" > > </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+  
+    {% if numero == 1 and "/moins" not in app.request.pathinfo %}
+    <div class="container">
         {% for compte in lesComptes %}
            {%   include['layouts/partials/_compteCard.html.twig'] with [{'compte': compte}] %}
        {% endfor %}  
     </div>
-       
+    {% else %}
+    <div class="container">
+
+    {% for i in range(numero-1, numero+1) %}
+        {%  set compte = lesComptes[i] %}
+         {%   include['layouts/partials/_compteCard.html.twig'] with [{'compte': compte}] %}
+    {% endfor %}
+    </div>
+    {% endif %}
+    
+    
+    
+    
+    </div>
+
+    
        
 {% endblock %}
 

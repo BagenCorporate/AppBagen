@@ -29,7 +29,7 @@ class AccueilController extends AbstractController {
 
     
     /**
-     * @Route ("/accueil", name="accueil", methods={"GET"})
+     * @Route ("/", name="accueil", methods={"GET"})
      * @return Response
      */
     public function index():Response {

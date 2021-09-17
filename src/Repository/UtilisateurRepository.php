@@ -114,6 +114,17 @@ class UtilisateurRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
     
+    public function updateMotdepasse($mdp, $mail){
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.motdepasse', ':mdp')
+            ->andWhere('p.mail = :mail')
+            ->setParameter('mdp', $mdp)
+            ->setParameter('mail', $mail)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
     public function updateAll($nom, $prenom, $adresse, $codepostal, $ville, $id){
         return $this->createQueryBuilder('p')
             ->update()

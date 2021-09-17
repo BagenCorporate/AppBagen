@@ -88,7 +88,7 @@
         </div>
         {{ include('layouts/partials/_flash_message.html.twig') }}
         
-        <main role="main" class="container">
+        <main role="main">
         <!--<div class="container">-->
         {% block body %}
         {% endblock %}
@@ -105,15 +105,20 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </body>
-    <div class="foot">
+    <div class="foot" style="z-index: 1 ">
     <footer>
-        <div class="container tac">
-            <div class="row">
-                <a href="{{ path('contact') }}" class="contact">Contacter</a>
-            </div>
-            <div class="row">
-                <p class="copyright" >© 2021 BAGEN</p>
+        <div class="container">
+            <div class="tac">
+                <div style="display:inline-block" >
+                    <div class="row display-ib">
+                        <a style="width:fit-content;" href="{{ path('contact') }}" class="contact">Contacter</a>
+                    </div>
+                    <div class="row">
+                        <p class="copyright" >© 2021 BAGEN</p>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
+    </div>
 </html>

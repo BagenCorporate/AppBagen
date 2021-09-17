@@ -152,9 +152,10 @@ class CompteController extends AbstractController{
         $libelle = $request->get("libelle");
         $montant = $request->get("montant");
         $ladate = $request->get("ladate");
-        $ladate = $this->dateFrancaisVersAnglais($ladate);
+        //$ladate = $this->dateFrancaisVersAnglais($ladate);
         $depenseRepository->updateDepense($id, $ladate, $libelle, $montant);
         $date=date("Y-m-d");
+        
         $compteRepository->updateDateModif($leCompte->getId(),$date);
         //dd($ladate);
         //$this->denyAccessUnlessGranted('ROLE_USER');
@@ -191,7 +192,8 @@ class CompteController extends AbstractController{
         $libelle = $request->get("libelle");
         $montant = $request->get("montant");
         $ladate = $request->get("ladate");
-        $ladate = $this->dateFrancaisVersAnglais($ladate);
+        
+        //$ladate = $this->dateFrancaisVersAnglais($ladate);
         //$date = new Date($ladate);
         
         $depense = new Depense;

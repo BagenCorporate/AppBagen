@@ -18,14 +18,25 @@
             <h2>{{ compte.intitule }}</h2>
         </div>
         {% if compte.lebudget != 0 and compte.totalDepense != null %}
-        <div class="chart x-{{compte.pourcentageBudgetDepense}}">
-            <p>{{compte.pourcentageBudgetDepense}}%</p>
-        </div>
-        <div style="text-align : center">
-            <a>Budget : {{ compte.lebudget }} €</a><br/>
-            <a>Dépenses : {{ compte.totalDepense }} €</a><br/>
-            <a>Total : {{ compte.total }} €</a>
-        </div>
+            {% if compte.pourcentageBudgetDepense >= 100 %}
+                <div class="chart-101 x-101">
+                    <p>{{compte.pourcentageBudgetDepense}}%</p>
+                </div>
+                <div style="text-align : center">
+                    <a>Budget : {{ compte.lebudget }} €</a><br/>
+                    <a>Dépenses : {{ compte.totalDepense }} €</a><br/>
+                    <a style="color:red">Total : {{ compte.total }} €</a>
+                </div>
+            {% else %}
+                <div class="chart x-{{compte.pourcentageBudgetDepense}}">
+                    <p>{{compte.pourcentageBudgetDepense}}%</p>
+                </div>
+                <div style="text-align : center">
+                    <a>Budget : {{ compte.lebudget }} €</a><br/>
+                    <a>Dépenses : {{ compte.totalDepense }} €</a><br/>
+                    <a>Total : {{ compte.total }} €</a>
+                </div>
+            {% endif %}
         {% else %}
             {% if compte.lebudget != 0 %}
                 <div style="text-align : center">

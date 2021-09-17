@@ -26,7 +26,25 @@ and open the template in the editor.
                 align-items: center;
                 font-size: 2em;
             }
+            
+            .chart-101 {
+                width: var(--size);
+                height: var(--size);
+                margin: 1em auto;
+                border: var(--bord) solid transparent;
+                border-radius: 50%;
+                background: linear-gradient(white, white) padding-box, conic-gradient(#DC143C var(--value), lightgrey var(--value)) border-box;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 2em;
+            }
 
+            .x-101 {
+               --value: 100%;
+            }
+            
             .x-0 {
                --value: 0%;
             }

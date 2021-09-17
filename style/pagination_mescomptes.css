@@ -3,7 +3,7 @@
     height: 30px;
     margin-bottom: 20px;
     margin-right: 5px;
-    margin-top: 5px;
+    margin-top: 20px;
     border: 1px solid black;
     border-radius: 50%;
     background: transparent;
@@ -19,6 +19,7 @@
     height: 40px;
     margin-bottom: 20px;
     margin-right: 5px;
+    margin-top: 15px;
     border: 1px solid black;
     border-radius: 50%;
     background: transparent;
@@ -43,4 +44,34 @@
 
 .select{
     background: lightblue;
+}
+
+.bartitre{
+    background-color:#77b5fe !important; 
+    border-radius: 10px;
+}
+
+.pr{
+    position: relative;
+}
+
+.pa{
+    position: absolute !important;
+}
+
+.centre{
+    top:50%;
+    margin-top: -10px;
+}
+
+.txt{
+    color:white;
+}
+
+.txt-select{
+    color:#77b5fe;
+}
+
+.tt-suggestion{
+    text-align: left !important;
 }

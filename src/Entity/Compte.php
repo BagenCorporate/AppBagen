@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\CompteRepository;
-use Doctrine\ORM\Mapping as ORM;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CompteRepository::class)
+ * @UniqueEntity("intitule", message="nom déja utilisé")
  */
 class Compte
 {
@@ -85,24 +88,24 @@ class Compte
         return $this;
     }
 
-    public function getDatecreation(): ?\DateTimeInterface
+    public function getDatecreation(): ?DateTimeInterface
     {
         return $this->datecreation;
     }
 
-    public function setDatecreation(\DateTimeInterface $datecreation): self
+    public function setDatecreation(DateTimeInterface $datecreation): self
     {
         $this->datecreation = $datecreation;
 
         return $this;
     }
 
-    public function getDatecloture(): ?\DateTimeInterface
+    public function getDatecloture(): ?DateTimeInterface
     {
         return $this->datecloture;
     }
 
-    public function setDatecloture(?\DateTimeInterface $datecloture): self
+    public function setDatecloture(?DateTimeInterface $datecloture): self
     {
         $this->datecloture = $datecloture;
 
@@ -121,12 +124,12 @@ class Compte
         return $this;
     }
 
-    public function getDatemodif(): ?\DateTimeInterface
+    public function getDatemodif(): ?DateTimeInterface
     {
         return $this->datemodif;
     }
 
-    public function setDatemodif(\DateTimeInterface $datemodif): self
+    public function setDatemodif(DateTimeInterface $datemodif): self
     {
         $this->datemodif = $datemodif;
 

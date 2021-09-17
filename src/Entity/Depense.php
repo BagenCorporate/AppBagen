@@ -44,6 +44,11 @@ class Depense
      */
     private $idcompte;
 
+    /**
+     * @ORM\Column(type="string", length=12, nullable=true)
+     */
+    private $datemodif;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +98,18 @@ class Depense
     public function setIdcompte(?compte $idcompte): self
     {
         $this->idcompte = $idcompte;
+
+        return $this;
+    }
+
+    public function getDatemodif(): ?string
+    {
+        return $this->datemodif;
+    }
+
+    public function setDatemodif(?string $datemodif): self
+    {
+        $this->datemodif = $datemodif;
 
         return $this;
     }

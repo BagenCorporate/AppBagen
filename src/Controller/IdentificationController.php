@@ -8,15 +8,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Mdpoublie;
 use App\Form\UserRegistrationFormType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Exception\LogicException;
+use function dd;
 
 /**
  * Description of IdentificationController
@@ -40,6 +44,7 @@ class IdentificationController extends AbstractController {
     
     
     
+    
     public const OLD_MAIL = 'old_mail';
    
   
@@ -56,7 +61,7 @@ class IdentificationController extends AbstractController {
      * @Route ("/register", name="register", methods={"GET","POST"})
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $om):Response {
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $om, MailerInterface $mailer):Response {
         $form = $this->createForm(UserRegistrationFormType::class);
         //dd($form);
         
@@ -75,7 +80,20 @@ class IdentificationController extends AbstractController {
             
             $this->addFlash('succes', 'Utilisateur créé avec succès !');
             
-            return $this->redirect('accueil');
+            
+            $email = (new TemplatedEmail())
+                    ->from('bagen@alwaysdata.net')
+                    ->to($form['mail']->getData())
+                    ->subject('Enregistrement confirmé')
+                    ->htmlTemplate("layouts/partials/_mailcontact.html.twig")
+                    ->context([
+                        'titre' => 'Bienvenue sur Bagen',
+                        'message' => 'Nous vous souhaitons la bienvenue sur Bagen',
+                        'mail' => 'bagen@alwaysdata.net'
+                    ]);
+            $mailer->send($email);
+            
+            return $this->redirect('identification');
         }
         
         return $this->render("pages/register.html.twig",[
@@ -87,11 +105,18 @@ class IdentificationController extends AbstractController {
      * @Route ("/identification", name="identification", methods={"GET","POST"})
      * @return Response
      */
-    public function index():Response {
+    public function index(Request $request):Response {
         $this->etat = "0";
+        //$request->getSession()->set('nbrcompte', 6);
+       
+            
         //$utilisateur = $this->utilisateurRepository->findByMailMotDePasse($mail, $mdp);
-        return $this->render("pages/identification.html.twig",['etat' => $this->etat
+       
+      
+            $request->getSession()->set('nbrcompte', 6);
+            return $this->render("pages/identification.html.twig",['etat' => $this->etat  
         ]);
+        
     }
     
     /**
@@ -100,9 +125,10 @@ class IdentificationController extends AbstractController {
      */
     public function logout():Response {
         
+        
         throw new LogicException('This method can be blank - it will be intercepted by the logout '
                 . 'key on your firewall');
-        
+       
     }
     
     
@@ -148,5 +174,60 @@ class IdentificationController extends AbstractController {
         //$utilisateur = $this->utilisateurRepository->findByMailMotDePasse($mail, $mdp);
         return $this->render("pages/identification.html.twig",['etat' => $this->etat
         ]);
+    }
+    
+    /**
+     * @Route ("/identification/oublie", name="identification.oublie", methods={"GET","POST"})
+     * @return Response
+     */
+    public function oublie(Request $request,EntityManagerInterface $om ,UtilisateurRepository $utilisateurRepository, MailerInterface $mailer):Response {
+        $mail = $request->get('email');
+        $utilisateur = $utilisateurRepository->findOneByMail($mail);
+        if($utilisateur != null){
+            
+            //création de l'objet mdpoublie dans la bdd
+            $mdpoublie = new Mdpoublie ;
+            $mdpoublie->setMail($mail);
+            $code = $this->textAleat(8);
+            $lien = "http://localhost/bagen/public/index.php/modifie/motdepasse/"
+                    . $code;
+            $mdpoublie->setCode($code);
+            $om->persist($mdpoublie);
+            $om->flush();
+            
+            //creation du mail et lien pour l'utilisateur
+            $email = (new TemplatedEmail())
+                    ->from('bagen@alwaysdata.net')
+                    ->to($mail)
+                    ->subject('Demande de modification de Mot de passe')
+                    ->htmlTemplate("layouts/partials/_mailcontact.html.twig")
+                    ->context([
+                        'titre' => 'Modification mot de passe',
+                        'message' => 'Pour modifier votre mot de passe vous pouvez cliquer sur ce lien : '
+                        . $lien,
+                        'mail' => 'bagen@alwaysdata.net'
+                    ]);
+            $mailer->send($email);
+            $this->addFlash('succes', 'un mail vous a été envoyé');
+            return $this->redirectToRoute("identification");
+        }else{
+        //$utilisateur = $this->utilisateurRepository->findByMailMotDePasse($mail, $mdp);
+            $this->addFlash('alert', "aucun utilisateur n'est enregistrer avec ce mail");
+            return $this->redirectToRoute("identification");
+        }
+    }
+    
+    /**
+     * 
+     * @param type $nbrLettre le nombre de lettres
+     * @return string 
+     */
+     public function textAleat($nbrLettre): string {
+        $liste = array("A","B","C","D","E","F","G","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+        $mot = "";
+        for ($k = 0; $k<$nbrLettre; $k++){
+            $mot = $mot.$liste[rand(0,24)];
+        }
+        return $mot; 
     }
 }

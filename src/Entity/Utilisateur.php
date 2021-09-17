@@ -62,14 +62,14 @@ class Utilisateur implements UserInterface
     private $motdepasse;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $prenom;
 
